@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_07_184603) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_07_211247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,6 +53,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_07_184603) do
     t.index ["customer_id"], name: "index_generators_on_customer_id"
   end
 
+  create_table "sites", force: :cascade do |t|
+    t.string "name", limit: 50, null: false
+    t.string "contact_name", limit: 25, null: false
+    t.string "contact_phone", limit: 14, null: false
+    t.string "epa_id", limit: 20, null: false
+    t.string "city", limit: 20, null: false
+    t.string "state", limit: 2, null: false
+    t.string "zip", limit: 5, null: false
+    t.string "address", limit: 100, null: false
+    t.decimal "longitude", precision: 10, scale: 6, null: false
+    t.decimal "latitude", precision: 10, scale: 6, null: false
+    t.date "job_hours_from", null: false
+    t.date "job_hours_to", null: false
+    t.bigint "car_projection", default: 0
+    t.integer "food_vendor_id", default: 0
+    t.string "image", limit: 100, default: [], array: true
+    t.string "supply_source", limit: 20, default: "MXIVA"
+    t.string "supply_notes", limit: 100, default: ""
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_sites_on_customer_id"
+  end
+
   add_foreign_key "customer_contracts", "customers"
   add_foreign_key "generators", "customers"
+  add_foreign_key "sites", "customers"
 end

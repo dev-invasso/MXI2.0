@@ -1,0 +1,41 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  contact_name: MyString
+  contact_phone: MyString
+  epa_id: MyString
+  city: MyString
+  state: MyString
+  zip: 1
+  address: MyString
+  longitude: 9.99
+  latitude: 9.99
+  job_hours_from: 2023-03-07
+  job_hours_to: 2023-03-07
+  car_projection: 1
+  food_vendor_id: 1
+  image: MyString
+  supply_source: MyString
+  supply_notes: MyString
+  customer: one
+
+two:
+  name: MyString
+  contact_name: MyString
+  contact_phone: MyString
+  epa_id: MyString
+  city: MyString
+  state: MyString
+  zip: 1
+  address: MyString
+  longitude: 9.99
+  latitude: 9.99
+  job_hours_from: 2023-03-07
+  job_hours_to: 2023-03-07
+  car_projection: 1
+  food_vendor_id: 1
+  image: MyString
+  supply_source: MyString
+  supply_notes: MyString
+  customer: two
