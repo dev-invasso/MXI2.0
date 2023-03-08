@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_08_002059) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_08_011819) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -39,6 +39,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_002059) do
     t.boolean "is_driver_certified", default: false, null: false
     t.boolean "cod", default: false, null: false
     t.string "is_mxi_the_generator", default: "yes", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "equipments", force: :cascade do |t|
+    t.string "name", limit: 50, null: false
+    t.integer "price", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -79,7 +86,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_002059) do
 
   create_table "supplies", force: :cascade do |t|
     t.string "name", limit: 50, null: false
-    t.integer "price", null: false
+    t.float "price", null: false
     t.bigint "supply_category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
