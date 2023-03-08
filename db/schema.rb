@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_08_011819) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_08_012637) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -93,6 +93,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_011819) do
     t.index ["supply_category_id"], name: "index_supplies_on_supply_category_id"
   end
 
+  create_table "supply_assignments", force: :cascade do |t|
+    t.string "assignable_type", null: false
+    t.bigint "assignable_id", null: false
+    t.bigint "supply_id", null: false
+    t.integer "quantity", limit: 2, null: false
+    t.float "price", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assignable_type", "assignable_id"], name: "index_supply_assignments_on_assignable"
+    t.index ["supply_id"], name: "index_supply_assignments_on_supply_id"
+  end
+
   create_table "supply_categories", force: :cascade do |t|
     t.string "name", limit: 50, null: false
     t.datetime "created_at", null: false
@@ -103,4 +115,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_011819) do
   add_foreign_key "generators", "customers"
   add_foreign_key "sites", "customers"
   add_foreign_key "supplies", "supply_categories"
+  add_foreign_key "supply_assignments", "supplies"
 end
