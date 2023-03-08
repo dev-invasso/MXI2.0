@@ -45,7 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_011819) do
 
   create_table "equipments", force: :cascade do |t|
     t.string "name", limit: 50, null: false
-    t.integer "price", null: false
+    t.float "price", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
