@@ -26,3 +26,8 @@
 + food_vendor_id:bigint (FK) 
 + bath_vendor_id:bigint (FK) 
 + msw_vendor_id:bigint (FK) 
+
+
++ name: string
++ price: integer
++ supply_category_id: bigint(FK)
