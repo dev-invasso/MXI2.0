@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_08_012637) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_08_030352) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_012637) do
     t.string "is_mxi_the_generator", default: "yes", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "equipment", force: :cascade do |t|
+    t.string "name", limit: 50, null: false
+    t.float "price", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "equipment_assignments", force: :cascade do |t|
+    t.bigint "equipment_id", null: false
+    t.string "equipmentable_type", null: false
+    t.bigint "equipmentable_id", null: false
+    t.integer "quantity", limit: 2, null: false
+    t.float "price", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["equipment_id"], name: "index_equipment_assignments_on_equipment_id"
+    t.index ["equipmentable_type", "equipmentable_id"], name: "index_equipment_assignments_on_equipmentable"
   end
 
   create_table "equipments", force: :cascade do |t|
@@ -112,6 +131,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_012637) do
   end
 
   add_foreign_key "customer_contracts", "customers"
+  add_foreign_key "equipment_assignments", "equipment"
   add_foreign_key "generators", "customers"
   add_foreign_key "sites", "customers"
   add_foreign_key "supplies", "supply_categories"
