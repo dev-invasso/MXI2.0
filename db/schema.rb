@@ -86,8 +86,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_200553) do
     t.decimal "latitude", precision: 10, scale: 6, null: false
     t.date "job_hours_from", null: false
     t.date "job_hours_to", null: false
+    t.string "bathrooms_choice", limit: 10, null: false
+    t.string "msw_choice", limit: 10, null: false
+    t.string "msw_roll_off", null: false
     t.bigint "car_projection", default: 0
-    t.integer "food_vendor_id", default: 0
     t.string "image", limit: 100, default: [], array: true
     t.string "supply_source", limit: 20, default: "MXIVA"
     t.string "supply_notes", limit: 100, default: ""

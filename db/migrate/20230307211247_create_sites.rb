@@ -13,8 +13,10 @@ class CreateSites < ActiveRecord::Migration[7.0]
       t.decimal :latitude, null: false, precision: 10, scale: 6
       t.date :job_hours_from, null: false
       t.date :job_hours_to, null: false
+      t.string :bathrooms_choice, null: false, limit: 10
+      t.string :msw_choice, null: false, limit: 10
+      t.string :msw_roll_off, null: false
       t.integer :car_projection, default: 0, limit: 5
-      t.integer :food_vendor_id, default: 0
       t.string :image, limit: 100, array: true, default: []
       t.string :supply_source, default: "MXIVA", limit: 20
       t.string :supply_notes, limit: 100, default: ""
