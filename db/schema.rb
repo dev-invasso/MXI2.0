@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_09_222533) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_233249) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -210,6 +210,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_222533) do
 
   create_table "supply_categories", force: :cascade do |t|
     t.string "name", limit: 50, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "transporters", force: :cascade do |t|
+    t.string "transporter_type", limit: 20, null: false
+    t.string "transporter_name", limit: 20, null: false
+    t.string "transporter_epa_id", limit: 15, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
