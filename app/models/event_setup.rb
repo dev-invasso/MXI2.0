@@ -1,0 +1,2 @@
+class EventSetup < ApplicationRecord
+end
