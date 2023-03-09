@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_09_215108) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_215648) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -110,6 +110,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_215108) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["report_id"], name: "index_report_line_items_on_report_id"
+  end
+
+  create_table "report_other_item_details", force: :cascade do |t|
+    t.string "name", null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.bigint "report_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["report_id"], name: "index_report_other_item_details_on_report_id"
   end
 
   create_table "reports", force: :cascade do |t|
@@ -276,6 +285,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_215108) do
   add_foreign_key "events", "sites"
   add_foreign_key "report_a_problems", "users"
   add_foreign_key "report_line_items", "reports"
+  add_foreign_key "report_other_item_details", "reports"
   add_foreign_key "reports", "events"
   add_foreign_key "sites", "customers"
   add_foreign_key "supplies", "supply_categories"
