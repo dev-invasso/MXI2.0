@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_09_160052) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_200553) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_160052) do
     t.string "is_mxi_the_generator", default: "yes", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_customers_on_user_id"
   end
 
   create_table "equipment", force: :cascade do |t|
@@ -60,16 +62,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_160052) do
     t.datetime "updated_at", null: false
     t.index ["equipment_id"], name: "index_equipment_assignments_on_equipment_id"
     t.index ["equipmentable_type", "equipmentable_id"], name: "index_equipment_assignments_on_equipmentable"
-  end
-
-  create_table "generators", force: :cascade do |t|
-    t.string "generator_name", limit: 20, null: false
-    t.string "generator_address", limit: 50, null: false
-    t.string "generator_phone", limit: 14, null: false
-    t.bigint "customer_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_generators_on_customer_id"
   end
 
   create_table "report_a_problems", force: :cascade do |t|
@@ -196,9 +188,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_160052) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "waste_generators", force: :cascade do |t|
+    t.string "generator_name", limit: 20, null: false
+    t.string "generator_address", limit: 50, null: false
+    t.string "generator_phone", limit: 14, null: false
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_waste_generators_on_customer_id"
+  end
+
   add_foreign_key "customer_contracts", "customers"
+  add_foreign_key "customers", "users"
   add_foreign_key "equipment_assignments", "equipment"
-  add_foreign_key "generators", "customers"
   add_foreign_key "report_a_problems", "users"
   add_foreign_key "sites", "customers"
   add_foreign_key "supplies", "supply_categories"
@@ -207,4 +209,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_160052) do
   add_foreign_key "user_passwords", "users"
   add_foreign_key "user_roles", "users"
   add_foreign_key "user_sessions", "users"
+  add_foreign_key "waste_generators", "customers"
 end
