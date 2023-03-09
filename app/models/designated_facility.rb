@@ -1,0 +1,2 @@
+class DesignatedFacility < ApplicationRecord
+end
