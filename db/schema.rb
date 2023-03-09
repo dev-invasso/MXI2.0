@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_09_221703) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_221940) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -274,6 +274,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_221703) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "vendors", force: :cascade do |t|
+    t.string "name", limit: 20, null: false
+    t.string "vendor_phone", limit: 14, null: false
+    t.string "vendor_email", limit: 20, null: false
+    t.string "vendor_contact_name", limit: 25, null: false
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.string "notes", limit: 50, null: false
+    t.bigint "vendor_type_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vendor_type_id"], name: "index_vendors_on_vendor_type_id"
+  end
+
   create_table "waste_generators", force: :cascade do |t|
     t.string "generator_name", limit: 20, null: false
     t.string "generator_address", limit: 50, null: false
@@ -300,5 +313,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_221703) do
   add_foreign_key "user_passwords", "users"
   add_foreign_key "user_roles", "users"
   add_foreign_key "user_sessions", "users"
+  add_foreign_key "vendors", "vendor_types"
   add_foreign_key "waste_generators", "customers"
 end
