@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_09_200553) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_212600) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,6 +62,31 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_200553) do
     t.datetime "updated_at", null: false
     t.index ["equipment_id"], name: "index_equipment_assignments_on_equipment_id"
     t.index ["equipmentable_type", "equipmentable_id"], name: "index_equipment_assignments_on_equipmentable"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "notes", limit: 50, null: false
+    t.integer "staff_projection", null: false
+    t.integer "car_projection", null: false
+    t.date "event_date", null: false
+    t.string "event_type", limit: 20, null: false
+    t.time "job_hours_from", null: false
+    t.time "job_hours_to", null: false
+    t.time "time_on_site", null: false
+    t.bigint "priority", null: false
+    t.bigint "load_number", null: false
+    t.integer "additional_food_count", null: false
+    t.boolean "need_meetup", null: false
+    t.boolean "need_event_setup", null: false
+    t.integer "number_of_travelers", null: false
+    t.integer "number_of_rooms", null: false
+    t.boolean "need_recurring_event", null: false
+    t.bigint "site_id", null: false
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_events_on_customer_id"
+    t.index ["site_id"], name: "index_events_on_site_id"
   end
 
   create_table "report_a_problems", force: :cascade do |t|
@@ -203,6 +228,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_200553) do
   add_foreign_key "customer_contracts", "customers"
   add_foreign_key "customers", "users"
   add_foreign_key "equipment_assignments", "equipment"
+  add_foreign_key "events", "customers"
+  add_foreign_key "events", "sites"
   add_foreign_key "report_a_problems", "users"
   add_foreign_key "sites", "customers"
   add_foreign_key "supplies", "supply_categories"
