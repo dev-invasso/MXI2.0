@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_09_221940) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_222533) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -149,6 +149,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_221940) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_reports_on_event_id"
+  end
+
+  create_table "site_vendors", force: :cascade do |t|
+    t.decimal "price", precision: 10, scale: 2, null: false
+    t.bigint "vendor_id", null: false
+    t.bigint "site_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["site_id"], name: "index_site_vendors_on_site_id"
+    t.index ["vendor_id"], name: "index_site_vendors_on_vendor_id"
   end
 
   create_table "sites", force: :cascade do |t|
@@ -306,6 +316,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_221940) do
   add_foreign_key "report_line_items", "reports"
   add_foreign_key "report_other_item_details", "reports"
   add_foreign_key "reports", "events"
+  add_foreign_key "site_vendors", "sites"
+  add_foreign_key "site_vendors", "vendors"
   add_foreign_key "sites", "customers"
   add_foreign_key "supplies", "supply_categories"
   add_foreign_key "supply_assignments", "supplies"

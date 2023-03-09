@@ -1,0 +1,2 @@
+class SiteVendor < ApplicationRecord
+end
