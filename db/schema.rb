@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_09_234027) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_234439) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -103,6 +103,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_234027) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "manifests", force: :cascade do |t|
+    t.string "name", limit: 20, null: false
+    t.string "relatable", limit: 255, null: false
+    t.integer "relatable_id", null: false
+    t.bigint "manifest_type_id", null: false
+    t.bigint "transporter_id", null: false
+    t.bigint "designated_facility_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["designated_facility_id"], name: "index_manifests_on_designated_facility_id"
+    t.index ["manifest_type_id"], name: "index_manifests_on_manifest_type_id"
+    t.index ["transporter_id"], name: "index_manifests_on_transporter_id"
   end
 
   create_table "report_a_problems", force: :cascade do |t|
@@ -336,6 +350,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_234027) do
   add_foreign_key "equipment_assignments", "equipment"
   add_foreign_key "events", "customers"
   add_foreign_key "events", "sites"
+  add_foreign_key "manifests", "designated_facilities"
+  add_foreign_key "manifests", "manifest_types"
+  add_foreign_key "manifests", "transporters"
   add_foreign_key "report_a_problems", "users"
   add_foreign_key "report_line_items", "reports"
   add_foreign_key "report_other_item_details", "reports"
