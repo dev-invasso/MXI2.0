@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_08_030352) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_09_160052) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -62,13 +62,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_030352) do
     t.index ["equipmentable_type", "equipmentable_id"], name: "index_equipment_assignments_on_equipmentable"
   end
 
-  create_table "equipments", force: :cascade do |t|
-    t.string "name", limit: 50, null: false
-    t.float "price", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "generators", force: :cascade do |t|
     t.string "generator_name", limit: 20, null: false
     t.string "generator_address", limit: 50, null: false
@@ -77,6 +70,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_030352) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_generators_on_customer_id"
+  end
+
+  create_table "report_a_problems", force: :cascade do |t|
+    t.string "subject", null: false
+    t.string "message", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_report_a_problems_on_user_id"
   end
 
   create_table "sites", force: :cascade do |t|
@@ -130,10 +132,79 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_08_030352) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_logs", force: :cascade do |t|
+    t.string "exception_class", limit: 255, null: false
+    t.string "controller_name", limit: 255, null: false
+    t.string "action_name", limit: 255, null: false
+    t.text "message", null: false
+    t.text "backtrace", null: false
+    t.text "environment", null: false
+    t.text "request", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_logs_on_user_id"
+  end
+
+  create_table "user_passwords", force: :cascade do |t|
+    t.string "encrypted_password", limit: 255, null: false
+    t.string "reset_password_token", limit: 255
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "unlock_token", limit: 255
+    t.datetime "locked_at"
+    t.integer "forgot_password_limit", default: 0
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_passwords_on_user_id"
+  end
+
+  create_table "user_roles", force: :cascade do |t|
+    t.string "modul_name"
+    t.boolean "create"
+    t.boolean "read"
+    t.boolean "update"
+    t.boolean "delete"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_roles_on_user_id"
+  end
+
+  create_table "user_sessions", force: :cascade do |t|
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip", limit: 255
+    t.string "last_sign_in_ip", limit: 255
+    t.integer "consumed_timestep", default: 0, null: false
+    t.integer "failed_attempts"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_sessions_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "first_name", limit: 100, null: false
+    t.string "last_name", limit: 100, null: false
+    t.string "encrypted_password", limit: 255, null: false
+    t.boolean "renew_password"
+    t.string "avatar", limit: 255
+    t.string "email", limit: 255, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "customer_contracts", "customers"
   add_foreign_key "equipment_assignments", "equipment"
   add_foreign_key "generators", "customers"
+  add_foreign_key "report_a_problems", "users"
   add_foreign_key "sites", "customers"
   add_foreign_key "supplies", "supply_categories"
   add_foreign_key "supply_assignments", "supplies"
+  add_foreign_key "user_logs", "users"
+  add_foreign_key "user_passwords", "users"
+  add_foreign_key "user_roles", "users"
+  add_foreign_key "user_sessions", "users"
 end
