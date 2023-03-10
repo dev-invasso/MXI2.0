@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_09_234954) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_10_000106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "core_supplies", force: :cascade do |t|
+    t.decimal "price", precision: 10, scale: 2
+    t.bigint "supply_category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["supply_category_id"], name: "index_core_supplies_on_supply_category_id"
+  end
 
   create_table "customer_contracts", force: :cascade do |t|
     t.date "contract_start_date", null: false
@@ -366,6 +374,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_09_234954) do
     t.index ["customer_id"], name: "index_waste_generators_on_customer_id"
   end
 
+  add_foreign_key "core_supplies", "supply_categories"
   add_foreign_key "customer_contracts", "customers"
   add_foreign_key "customers", "users"
   add_foreign_key "equipment_assignments", "equipment"
