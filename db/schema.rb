@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_205631) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_10_210046) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -85,6 +85,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_205631) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["driver_application_id"], name: "index_driver_application_addresses_on_driver_application_id"
+  end
+
+  create_table "driver_application_bank_accounts", force: :cascade do |t|
+    t.string "account_type", limit: 255, null: false
+    t.string "routing_number", limit: 255, null: false
+    t.string "account_number", limit: 255, null: false
+    t.string "amount_type", limit: 255, null: false
+    t.bigint "driver_application_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["driver_application_id"], name: "index_driver_application_bank_accounts_on_driver_application_id"
+    t.index ["routing_number"], name: "index_driver_application_bank_accounts_on_routing_number", unique: true
   end
 
   create_table "driver_applications", force: :cascade do |t|
@@ -684,6 +696,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_205631) do
   add_foreign_key "customer_contracts", "customers"
   add_foreign_key "customers", "users"
   add_foreign_key "driver_application_addresses", "driver_applications"
+  add_foreign_key "driver_application_bank_accounts", "driver_applications"
   add_foreign_key "driver_applications", "staff_groups"
   add_foreign_key "equipment_assignments", "equipment"
   add_foreign_key "event_setups", "events"

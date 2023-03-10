@@ -1,0 +1,2 @@
+class DriverApplicationBankAccount < ApplicationRecord
+end
