@@ -1,0 +1,2 @@
+class DriverViolationCertificate < ApplicationRecord
+end
