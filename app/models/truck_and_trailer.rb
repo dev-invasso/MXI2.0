@@ -1,0 +1,2 @@
+class TruckAndTrailer < ApplicationRecord
+end
