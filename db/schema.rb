@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_150013) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_10_150549) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -102,6 +102,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_150013) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_event_setups_on_event_id"
+  end
+
+  create_table "event_staff_lists", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "staff_member_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_event_staff_lists_on_event_id"
+    t.index ["staff_member_id"], name: "index_event_staff_lists_on_staff_member_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -452,6 +461,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_150013) do
   add_foreign_key "customers", "users"
   add_foreign_key "equipment_assignments", "equipment"
   add_foreign_key "event_setups", "events"
+  add_foreign_key "event_staff_lists", "events"
+  add_foreign_key "event_staff_lists", "staff_members"
   add_foreign_key "events", "customers"
   add_foreign_key "events", "sites"
   add_foreign_key "manifest_line_items", "core_supplies"
