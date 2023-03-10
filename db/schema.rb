@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_000336) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_10_000715) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,6 +20,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_000336) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["supply_category_id"], name: "index_core_supplies_on_supply_category_id"
+  end
+
+  create_table "core_supply_line_items", force: :cascade do |t|
+    t.decimal "price", precision: 10, scale: 2
+    t.bigint "core_supply_id", null: false
+    t.bigint "line_item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["core_supply_id"], name: "index_core_supply_line_items_on_core_supply_id"
+    t.index ["line_item_id"], name: "index_core_supply_line_items_on_line_item_id"
   end
 
   create_table "customer_contracts", force: :cascade do |t|
@@ -382,6 +392,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_000336) do
   end
 
   add_foreign_key "core_supplies", "supply_categories"
+  add_foreign_key "core_supply_line_items", "core_supplies"
+  add_foreign_key "core_supply_line_items", "line_items"
   add_foreign_key "customer_contracts", "customers"
   add_foreign_key "customers", "users"
   add_foreign_key "equipment_assignments", "equipment"
