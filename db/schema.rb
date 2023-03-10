@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_165050) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_10_205631) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_165050) do
     t.string "epa_id", limit: 15, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "driver_application_addresses", force: :cascade do |t|
+    t.string "address_type", limit: 255, null: false
+    t.string "address_line1", limit: 255, null: false
+    t.string "address_line2", limit: 255
+    t.string "city", limit: 255, null: false
+    t.string "state", limit: 255, null: false
+    t.string "zip_code", limit: 10, null: false
+    t.date "start_date", null: false
+    t.bigint "driver_application_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["driver_application_id"], name: "index_driver_application_addresses_on_driver_application_id"
   end
 
   create_table "driver_applications", force: :cascade do |t|
@@ -669,6 +683,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_165050) do
   add_foreign_key "core_supply_line_items", "line_items"
   add_foreign_key "customer_contracts", "customers"
   add_foreign_key "customers", "users"
+  add_foreign_key "driver_application_addresses", "driver_applications"
   add_foreign_key "driver_applications", "staff_groups"
   add_foreign_key "equipment_assignments", "equipment"
   add_foreign_key "event_setups", "events"
