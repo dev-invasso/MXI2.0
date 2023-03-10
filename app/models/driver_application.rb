@@ -1,0 +1,2 @@
+class DriverApplication < ApplicationRecord
+end
