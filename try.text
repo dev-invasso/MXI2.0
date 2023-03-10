@@ -1,0 +1,33 @@
++ name: string
++ contact_name: string
++ contact_phone: string  
++ epa_id: string
++ city : string
++ state : string
++ zip : integer
++ address : string
++ longitude : decimal
++ latitude : decimal
++job_hours_from: date
++job_hours_to: date
++ car_projection: integer
++food_vendor_id:integer
++ image:string, array
++ supply_source: string
++ supply_notes: string
++ customer_id:bigint (FK) 
+
+
+
++ bathrooms_choice
++ municipal_solid_Waste_choice
++ msw_roll_off:
++ image: array
++ food_vendor_id:bigint (FK) 
++ bath_vendor_id:bigint (FK) 
++ msw_vendor_id:bigint (FK) 
+
+
++ name: string
++ price: integer
++ supply_category_id: bigint(FK)

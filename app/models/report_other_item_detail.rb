@@ -1,0 +1,2 @@
+class ReportOtherItemDetail < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class ManifestLineItem < ApplicationRecord
+end
