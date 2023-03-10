@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_145742) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_10_150013) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -283,6 +283,40 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_145742) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "staff_members", force: :cascade do |t|
+    t.string "hire_type", null: false
+    t.boolean "per_hour", default: false, null: false
+    t.decimal "pay_rate", precision: 8, scale: 2, null: false
+    t.string "referred_by", null: false
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "email", null: false
+    t.string "phone", null: false
+    t.string "city", null: false
+    t.string "state", null: false
+    t.string "zip", null: false
+    t.string "address", null: false
+    t.decimal "longitude", precision: 10, scale: 6, null: false
+    t.decimal "latitude", precision: 10, scale: 6, null: false
+    t.boolean "hazwoper", default: false, null: false
+    t.boolean "bachelor_degree", default: false, null: false
+    t.boolean "yearly_training", default: false, null: false
+    t.date "training_date"
+    t.string "received_by", default: "sms", null: false
+    t.boolean "is_new", default: false, null: false
+    t.boolean "is_paper_work_in", default: false, null: false
+    t.boolean "is_active", default: true, null: false
+    t.string "shirt_size", null: false
+    t.datetime "start_date", null: false
+    t.string "hashtags", default: [], null: false, array: true
+    t.text "notes", null: false
+    t.boolean "status"
+    t.bigint "staff_group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["staff_group_id"], name: "index_staff_members_on_staff_group_id"
+  end
+
   create_table "supplies", force: :cascade do |t|
     t.string "name", limit: 50, null: false
     t.float "price", null: false
@@ -434,6 +468,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_145742) do
   add_foreign_key "site_vendors", "sites"
   add_foreign_key "site_vendors", "vendors"
   add_foreign_key "sites", "customers"
+  add_foreign_key "staff_members", "staff_groups"
   add_foreign_key "supplies", "supply_categories"
   add_foreign_key "supply_assignments", "supplies"
   add_foreign_key "user_logs", "users"
