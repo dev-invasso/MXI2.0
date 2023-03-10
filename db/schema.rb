@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_210809) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_10_211011) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -287,6 +287,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_210809) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["staff_group_id"], name: "index_driver_applications_on_staff_group_id"
+  end
+
+  create_table "driver_traffic_convictions", force: :cascade do |t|
+    t.string "location", limit: 255, null: false
+    t.date "conviction_date", null: false
+    t.string "charge", limit: 255, null: false
+    t.string "penalty", limit: 255, null: false
+    t.bigint "driver_application_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["driver_application_id"], name: "index_driver_traffic_convictions_on_driver_application_id"
   end
 
   create_table "driver_violation_certificates", force: :cascade do |t|
@@ -731,6 +742,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_210809) do
   add_foreign_key "driver_application_bank_accounts", "driver_applications"
   add_foreign_key "driver_application_histories", "driver_applications"
   add_foreign_key "driver_applications", "staff_groups"
+  add_foreign_key "driver_traffic_convictions", "driver_applications"
   add_foreign_key "driver_violation_certificates", "driver_applications"
   add_foreign_key "equipment_assignments", "equipment"
   add_foreign_key "event_setups", "events"
