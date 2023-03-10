@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_151002) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_10_151225) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -298,6 +298,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_151002) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "staff_job_capabilities", force: :cascade do |t|
+    t.boolean "capable", null: false
+    t.bigint "job_capability_id", null: false
+    t.bigint "staff_member_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_capability_id"], name: "index_staff_job_capabilities_on_job_capability_id"
+    t.index ["staff_member_id"], name: "index_staff_job_capabilities_on_staff_member_id"
+  end
+
   create_table "staff_members", force: :cascade do |t|
     t.string "hire_type", null: false
     t.boolean "per_hour", default: false, null: false
@@ -485,6 +495,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_151002) do
   add_foreign_key "site_vendors", "sites"
   add_foreign_key "site_vendors", "vendors"
   add_foreign_key "sites", "customers"
+  add_foreign_key "staff_job_capabilities", "job_capabilities"
+  add_foreign_key "staff_job_capabilities", "staff_members"
   add_foreign_key "staff_members", "staff_groups"
   add_foreign_key "supplies", "supply_categories"
   add_foreign_key "supply_assignments", "supplies"
