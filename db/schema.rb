@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_151225) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_10_151553) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -192,6 +192,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_151225) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_meetups_on_event_id"
+  end
+
+  create_table "referral_bonus", force: :cascade do |t|
+    t.decimal "bonus_amount", precision: 10, scale: 2, null: false
+    t.boolean "paid", default: false, null: false
+    t.bigint "referred_staff_member_id", null: false
+    t.bigint "referrer_staff_member_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["referred_staff_member_id"], name: "index_referral_bonus_on_referred_staff_member_id"
+    t.index ["referrer_staff_member_id"], name: "index_referral_bonus_on_referrer_staff_member_id"
   end
 
   create_table "report_a_problems", force: :cascade do |t|
@@ -488,6 +499,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_151225) do
   add_foreign_key "manifests", "manifest_types"
   add_foreign_key "manifests", "transporters"
   add_foreign_key "meetups", "events"
+  add_foreign_key "referral_bonus", "staff_members", column: "referred_staff_member_id"
+  add_foreign_key "referral_bonus", "staff_members", column: "referrer_staff_member_id"
   add_foreign_key "report_a_problems", "users"
   add_foreign_key "report_line_items", "reports"
   add_foreign_key "report_other_item_details", "reports"
