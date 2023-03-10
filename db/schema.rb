@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_210046) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_10_210258) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -97,6 +97,27 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_210046) do
     t.datetime "updated_at", null: false
     t.index ["driver_application_id"], name: "index_driver_application_bank_accounts_on_driver_application_id"
     t.index ["routing_number"], name: "index_driver_application_bank_accounts_on_routing_number", unique: true
+  end
+
+  create_table "driver_application_histories", force: :cascade do |t|
+    t.string "name", limit: 255, null: false
+    t.string "address", limit: 255, null: false
+    t.string "city", limit: 255, null: false
+    t.string "state", limit: 255, null: false
+    t.string "zip_code", limit: 10, null: false
+    t.date "from_date", null: false
+    t.date "to_date", null: false
+    t.string "position", limit: 255, null: false
+    t.string "salary", limit: 255, null: false
+    t.string "contact_person", limit: 255, null: false
+    t.string "contact_person_phone", limit: 20, null: false
+    t.string "leaving_reason", limit: 255, null: false
+    t.string "subject_to_fmcsr", limit: 255, null: false
+    t.string "is_49_cfr", limit: 255, null: false
+    t.bigint "driver_application_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["driver_application_id"], name: "index_driver_application_histories_on_driver_application_id"
   end
 
   create_table "driver_applications", force: :cascade do |t|
@@ -697,6 +718,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_210046) do
   add_foreign_key "customers", "users"
   add_foreign_key "driver_application_addresses", "driver_applications"
   add_foreign_key "driver_application_bank_accounts", "driver_applications"
+  add_foreign_key "driver_application_histories", "driver_applications"
   add_foreign_key "driver_applications", "staff_groups"
   add_foreign_key "equipment_assignments", "equipment"
   add_foreign_key "event_setups", "events"
