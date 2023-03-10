@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_152116) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_10_152301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -359,6 +359,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_152116) do
     t.index ["staff_group_id"], name: "index_staff_members_on_staff_group_id"
   end
 
+  create_table "staff_shirts", force: :cascade do |t|
+    t.boolean "is_received", default: false, null: false
+    t.bigint "staff_member_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["staff_member_id"], name: "index_staff_shirts_on_staff_member_id"
+  end
+
   create_table "supplies", force: :cascade do |t|
     t.string "name", limit: 50, null: false
     t.float "price", null: false
@@ -517,6 +525,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_152116) do
   add_foreign_key "staff_job_capabilities", "job_capabilities"
   add_foreign_key "staff_job_capabilities", "staff_members"
   add_foreign_key "staff_members", "staff_groups"
+  add_foreign_key "staff_shirts", "staff_members"
   add_foreign_key "supplies", "supply_categories"
   add_foreign_key "supply_assignments", "supplies"
   add_foreign_key "user_logs", "users"

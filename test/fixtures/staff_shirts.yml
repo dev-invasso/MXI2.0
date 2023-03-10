@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  is_received: false
+  staff_member: one
+
+two:
+  is_received: false
+  staff_member: two
