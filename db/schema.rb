@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_000715) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_10_000920) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -134,6 +134,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_000715) do
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "manifest_line_items", force: :cascade do |t|
+    t.string "shipping_name", limit: 50, null: false
+    t.string "label_type", limit: 50, null: false
+    t.integer "number_of_labels", limit: 2, null: false
+    t.bigint "core_supply_id", null: false
+    t.bigint "line_item_id", null: false
+    t.bigint "manifest_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["core_supply_id"], name: "index_manifest_line_items_on_core_supply_id"
+    t.index ["line_item_id"], name: "index_manifest_line_items_on_line_item_id"
+    t.index ["manifest_id"], name: "index_manifest_line_items_on_manifest_id"
   end
 
   create_table "manifest_types", force: :cascade do |t|
@@ -400,6 +414,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_10_000715) do
   add_foreign_key "event_setups", "events"
   add_foreign_key "events", "customers"
   add_foreign_key "events", "sites"
+  add_foreign_key "manifest_line_items", "core_supplies"
+  add_foreign_key "manifest_line_items", "line_items"
+  add_foreign_key "manifest_line_items", "manifests"
   add_foreign_key "manifests", "designated_facilities"
   add_foreign_key "manifests", "manifest_types"
   add_foreign_key "manifests", "transporters"
