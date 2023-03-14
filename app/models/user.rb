@@ -4,4 +4,5 @@ class User < ApplicationRecord
   has_one :user_password
   has_many :user_role
   has_many :user_sessions
+  has_many :customers
 end
