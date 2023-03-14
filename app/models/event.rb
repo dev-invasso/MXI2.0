@@ -7,4 +7,6 @@ class Event < ApplicationRecord
     has_many :staff_members, through: :event_staff_lists
     has_many :manifests, as: :relatable
     belongs_to :customer
+    has_many :reports
+    
 end
