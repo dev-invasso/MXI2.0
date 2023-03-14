@@ -5,4 +5,5 @@ class Manifest < ApplicationRecord
     belongs_to :manifest_type
     belongs_to :site, optional: true
     belongs_to :event, optional: true
+    has_many :manifest_line_items
 end
