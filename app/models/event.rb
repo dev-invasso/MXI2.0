@@ -8,5 +8,7 @@ class Event < ApplicationRecord
     has_many :manifests, as: :relatable
     belongs_to :customer
     has_many :reports
-    
+    has_one :meetup
+    has_one :event_setup
+
 end
