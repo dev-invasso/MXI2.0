@@ -5,6 +5,6 @@ class Event < ApplicationRecord
     has_many :equipment, through: :equipment_assignments
     has_many :event_staff_lists
     has_many :staff_members, through: :event_staff_lists
-    
+    has_many :manifests, as: :relatable
     belongs_to :customer
 end

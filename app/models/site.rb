@@ -7,5 +7,6 @@ class Site < ApplicationRecord
   has_many :site_vendors
   has_many :vendors, through: :site_vendors
   has_many :events
+  has_many :manifests, as: :relatable
   
 end
