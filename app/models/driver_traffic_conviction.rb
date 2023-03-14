@@ -1,0 +1,2 @@
+class DriverTrafficConviction < ApplicationRecord
+end

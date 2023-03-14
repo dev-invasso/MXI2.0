@@ -1,0 +1,2 @@
+class ReferralBonu < ApplicationRecord
+end

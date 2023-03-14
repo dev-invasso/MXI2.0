@@ -1,0 +1,2 @@
+class StaffGroup < ApplicationRecord
+end

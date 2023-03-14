@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  capable: false
+  job_capability: one
+  staff_member: one
+
+two:
+  capable: false
+  job_capability: two
+  staff_member: two

@@ -1,0 +1,2 @@
+class DriverApplicationHistory < ApplicationRecord
+end
