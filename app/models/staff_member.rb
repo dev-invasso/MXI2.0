@@ -6,4 +6,5 @@ class StaffMember < ApplicationRecord
     has_many :job_capabilities, through: :staff_job_capabilities
     has_many :referral_bonuses_as_refered_staff, class_name: 'ReferralBonus', foreign_key: 'refered_staff_id'
     has_many :referral_bonuses_as_referer_staff, class_name: 'ReferralBonus', foreign_key: 'referer_staff_id'
+    has_many :staff_shirts
 end
