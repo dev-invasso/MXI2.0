@@ -1,3 +1,3 @@
 class VendorType < ApplicationRecord
-    has_many :vendors
+  has_many :vendors
 end

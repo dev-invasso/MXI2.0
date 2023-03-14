@@ -1,3 +1,3 @@
 class DesignatedFacility < ApplicationRecord
-    has_many :relatable
+  has_many :relatable
 end

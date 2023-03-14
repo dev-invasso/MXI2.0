@@ -1,3 +1,3 @@
 class ManifestType < ApplicationRecord
-    has_many :manifests 
+  has_many :manifests
 end
